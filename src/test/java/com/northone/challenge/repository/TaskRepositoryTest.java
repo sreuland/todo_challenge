@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -40,7 +41,7 @@ class TaskRepositoryTest {
     @Test
     void itListsTasks() throws Exception {
 
-        taskRepository.save(new Task(null,"desc","title", LocalDate.now(), Status.DONE));
+        taskRepository.save(new Task("desc","title", LocalDateTime.now(), Status.DONE));
 
         MvcResult mvcResult = mockMvc.perform(get("/api/tasks")
                 .contentType("application/json"))
