@@ -1,5 +1,7 @@
 package com.northone.challenge.model;
 
+import com.querydsl.core.annotations.QueryEntity;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -9,13 +11,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Document(collection = "TASKS")
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
+@QueryEntity
 /**
  * The domain model for the Task Entity
  */

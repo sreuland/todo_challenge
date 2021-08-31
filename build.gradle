@@ -20,6 +20,8 @@ repositories {
 	mavenCentral()
 }
 
+def queryDslOutput = file("${buildDir}/generated/source/apt")
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -28,11 +30,15 @@ dependencies {
 	implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: "3.0.0"
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'net.javacrumbs.json-unit', name: 'json-unit-assertj', version: '2.27.0'
+	implementation 'com.querydsl:querydsl-mongodb:5.0.0'
+	compileOnly 'com.querydsl:querydsl-apt:5.0.0:general'
+	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:general'
 }
+compileJava.options.getGeneratedSourceOutputDirectory().set(queryDslOutput)
 
 test {
 	useJUnitPlatform()
