@@ -1,7 +1,7 @@
 package com.northone.challenge.model;
 
 import com.querydsl.core.annotations.QueryEntity;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
  */
 public class Task {
     @Id
+    @Schema(hidden = true)
     private String id;
 
     @NonNull
@@ -35,8 +36,10 @@ public class Task {
     private Status status;
 
     @CreatedDate
+    @Schema(hidden = true)
     private LocalDateTime createdDate;
     @LastModifiedDate
+    @Schema(hidden = true)
     private LocalDateTime lastModifiedDate;
 
 }

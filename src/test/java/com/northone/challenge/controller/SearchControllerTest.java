@@ -10,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,7 +41,7 @@ class SearchControllerTest {
     @Test
     void itSearchesAndFindsMatchingTasks() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?description=xesc&title=title")
+        MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?description=desc&title=title")
                 .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.tasks[0].title").value("title"))

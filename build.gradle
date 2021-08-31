@@ -28,15 +28,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: "3.0.0"
+	implementation 'com.querydsl:querydsl-mongodb:5.0.0'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
+	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.5.10'
+	implementation 'org.springdoc:springdoc-openapi-hateoas:1.5.10'
+	implementation 'org.springdoc:springdoc-openapi-data-rest:1.5.10'
 	compileOnly 'org.projectlombok:lombok'
-	// developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'com.querydsl:querydsl-apt:5.0.0:general'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'net.javacrumbs.json-unit', name: 'json-unit-assertj', version: '2.27.0'
-	implementation 'com.querydsl:querydsl-mongodb:5.0.0'
-	compileOnly 'com.querydsl:querydsl-apt:5.0.0:general'
 	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:general'
+	annotationProcessor 'org.projectlombok:lombok'
 }
 compileJava.options.getGeneratedSourceOutputDirectory().set(queryDslOutput)
 

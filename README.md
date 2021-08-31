@@ -1,4 +1,4 @@
-# Todo List Challenge
+# Todo Challenge
 
 This project provides the micro service implementation for Todo Domain Model.
 
@@ -7,7 +7,7 @@ This project provides the micro service implementation for Todo Domain Model.
 The Todo Task Entity is accessible through the API provided as an HTTP service on
 port 8081 - http://localhost:8081/api/tasks
 
-API Docs for all of Todo API are located at http://localhost:8081/swagger-ui/index.html
+API Docs for all of Todo API are located at http://localhost:8081/swagger-ui.html
 
 ## Development
 This is a Java project and requires you have a Java JDK 1.11 or higher installed and
@@ -50,7 +50,8 @@ at JVM runtime through O/S, shell environment variables or as JVM system propert
 Refer to 'src/main/resources/application.properties' for names of variables that can be set.
 
 ## Status 
-1. Task Entity is implemented, model, persistence and api.
+1. Task Entity is implemented, model, persistence, api and docs.
+2. Added multi-field search with simple query string DSL.
 
 
 
