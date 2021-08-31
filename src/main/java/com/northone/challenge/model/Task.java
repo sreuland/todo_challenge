@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 
 import java.time.LocalDateTime;
 
@@ -27,8 +29,10 @@ public class Task {
     private String id;
 
     @NonNull
+    @TextIndexed
     private String description;
     @NonNull
+    @TextIndexed
     private String title;
     @NonNull
     private LocalDateTime dueDate;
@@ -41,6 +45,10 @@ public class Task {
     @LastModifiedDate
     @Schema(hidden = true)
     private LocalDateTime lastModifiedDate;
+
+    // transient, only used for text search results
+    @TextScore
+    Float score;
 
 }
 

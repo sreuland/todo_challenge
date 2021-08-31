@@ -2,8 +2,12 @@ package com.northone.challenge.repository;
 
 import com.northone.challenge.model.QTask;
 import com.northone.challenge.model.Task;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringPath;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -21,4 +25,6 @@ public interface TaskRepository extends MongoRepository<Task, String>,
         bindings.bind(String.class)
                 .first((StringPath path, String value) -> path.containsIgnoreCase(value));
     }
+
+    Page<Task> findAllBy(TextCriteria criteria, Pageable pageable);
 }

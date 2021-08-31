@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.TextIndexDefinition;
+import org.springframework.data.mongodb.core.index.TextIndexDefinition.TextIndexDefinitionBuilder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -32,14 +35,22 @@ class SearchControllerTest {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    MongoTemplate mongoTemplate;
+
     @BeforeEach
     public void clearDb() {
         taskRepository.deleteAll();
         taskRepository.save(new Task("desc","title", LocalDateTime.now(), Status.DONE));
+        TextIndexDefinition textIndex = new TextIndexDefinitionBuilder()
+                .onField("title")
+                .onField("description")
+                .build();
+        mongoTemplate.indexOps(Task.class).ensureIndex(textIndex);
     }
 
     @Test
-    void itSearchesAndFindsMatchingTasks() throws Exception {
+    void itSearchesByDsl() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?description=desc&title=title")
                 .contentType("application/json"))
@@ -53,7 +64,21 @@ class SearchControllerTest {
     }
 
     @Test
-    void itSearchesAndDoesntFindNonMatchingTasks() throws Exception {
+    void itSearchesByText() throws Exception {
+
+        MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?text=desc")
+                        .contentType("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.tasks[0].description").value("desc"))
+                .andExpect(jsonPath("$.page.totalElements").value(1))
+                .andReturn();
+
+        String actualResponseBody = mvcResult.getResponse().getContentAsString();
+        LOG.info("Task Search response: {}", actualResponseBody);
+    }
+
+    @Test
+    void itSearchesByDslForNonMatchingTasks() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?description=descxx&title=title")
                         .contentType("application/json"))
