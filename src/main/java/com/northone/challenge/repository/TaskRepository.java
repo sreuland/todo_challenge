@@ -4,6 +4,8 @@ import com.northone.challenge.model.QTask;
 import com.northone.challenge.model.Task;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringPath;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,10 +23,12 @@ public interface TaskRepository extends MongoRepository<Task, String>,
 
     @Override
     default void customize(QuerydslBindings bindings, QTask task) {
-        bindings.excluding(task.createdDate, task.id, task.lastModifiedDate);
+        bindings.excluding(task.createdDate, task.id, task.lastModifiedDate, task.score, task.dueDate);
         bindings.bind(String.class)
                 .first((StringPath path, String value) -> path.containsIgnoreCase(value));
     }
 
+    @Operation(hidden = true)
+    @Hidden
     Page<Task> findAllBy(TextCriteria criteria, Pageable pageable);
 }

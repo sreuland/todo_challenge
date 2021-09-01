@@ -28,13 +28,13 @@ public class SearchController {
     @Autowired
     TaskRepository taskRepository;
 
-    @GetMapping(value="/tasks/search", params = {"text"})
-    @Operation(summary="Search for tasks by text index")
+    @GetMapping(value="/tasks/search")
+    @Operation(summary="Search for tasks by full text index.")
     @PageableAsQueryParam
     RepresentationModel<?> searchTasks(
             @Parameter(hidden = true) Pageable pageable,
             @Parameter(hidden = true) PagedResourcesAssembler<Task> assembler,
-            @Parameter(name="full text search", description = "search across all text fields of tasks")
+            @Parameter(name="text", description = "search across all text fields of tasks")
                  @RequestParam(value="text", required = true) String text ) {
         TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingPhrase(text);
         var matches = taskRepository.findAllBy(criteria, pageable);
@@ -43,8 +43,8 @@ public class SearchController {
             assembler.toModel(matches);
     }
 
-    @GetMapping("/tasks/search")
-    @Operation(summary="Search for tasks by multiple fields at same time")
+    @GetMapping("/tasks/query")
+    @Operation(summary="Search for tasks by multiple fields at same time. Text fields use 'contains' matching, all other fields use exact matching.")
     @PageableAsQueryParam
     RepresentationModel<?> queryTasks(
             @QuerydslPredicate(root = Task.class)  Predicate predicate,

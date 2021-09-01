@@ -35,24 +35,16 @@ class SearchControllerTest {
     @Autowired
     private TaskRepository taskRepository;
 
-    @Autowired
-    MongoTemplate mongoTemplate;
-
     @BeforeEach
     public void clearDb() {
         taskRepository.deleteAll();
         taskRepository.save(new Task("desc","title", LocalDateTime.now(), Status.DONE));
-        TextIndexDefinition textIndex = new TextIndexDefinitionBuilder()
-                .onField("title")
-                .onField("description")
-                .build();
-        mongoTemplate.indexOps(Task.class).ensureIndex(textIndex);
     }
 
     @Test
     void itSearchesByDsl() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?description=desc&title=title")
+        MvcResult mvcResult = mockMvc.perform(get("/api/tasks/query?description=desc&title=title")
                 .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.tasks[0].title").value("title"))
@@ -80,7 +72,7 @@ class SearchControllerTest {
     @Test
     void itSearchesByDslForNonMatchingTasks() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?description=descxx&title=title")
+        MvcResult mvcResult = mockMvc.perform(get("/api/tasks/query?description=descxx&title=title")
                         .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.tasks").isEmpty())
