@@ -1,8 +1,7 @@
-package com.northone.challenge.repository;
+package net.sample.challenge.repository;
 
-import com.northone.challenge.model.QTask;
-import com.northone.challenge.model.Task;
-import com.querydsl.core.types.Predicate;
+import net.sample.challenge.model.QTask;
+import net.sample.challenge.model.Task;
 import com.querydsl.core.types.dsl.StringPath;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;

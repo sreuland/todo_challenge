@@ -1,18 +1,12 @@
-package com.northone.challenge;
+package net.sample.challenge;
 
-import com.northone.challenge.model.Status;
-import com.northone.challenge.model.Task;
-import com.northone.challenge.repository.TaskRepository;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.PathItem;
-import io.swagger.v3.oas.models.Paths;
-import io.swagger.v3.oas.models.info.Info;
+import net.sample.challenge.model.Status;
+import net.sample.challenge.model.Task;
+import net.sample.challenge.repository.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springdoc.core.SpringDocUtils;
 import org.springdoc.core.customizers.OpenApiCustomiser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,10 +24,8 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 @SpringBootApplication
@@ -67,16 +59,18 @@ public class ChallengeApplication {
 	 */
 	ApplicationRunner init(TaskRepository repository, MongoTemplate mongoTemplate) {
 		return args -> {
-			repository.save(new Task("Do Something #1", "Task #1", LocalDateTime.now().plus(120, ChronoUnit.MINUTES), Status.INPROGRESS));
-			repository.save(new Task("Do Something #2", "Task #2", LocalDateTime.now().minus(240, ChronoUnit.MINUTES), Status.DONE));
-			repository.save(new Task("Do Something #3", "Task #3", LocalDateTime.now().plus(240, ChronoUnit.MINUTES), Status.PENDING));
-			LOG.info("finished seeding tasks for in-memory mongodb.");
 			TextIndexDefinition textIndex = new TextIndexDefinitionBuilder()
 					.onField("title")
 					.onField("description")
 					.build();
 			mongoTemplate.indexOps(Task.class).ensureIndex(textIndex);
-			LOG.info("finished seeding index for tasks collection for in-memory mongodb.");
+			LOG.info("finished defining index for tasks collection for in-memory mongodb.");
+
+			repository.save(new Task("Need to do Something #1", "Task #1", LocalDateTime.now().plus(120, ChronoUnit.MINUTES), Status.INPROGRESS));
+			repository.save(new Task("Need to do Something #2", "Task #2", LocalDateTime.now().minus(240, ChronoUnit.MINUTES), Status.DONE));
+			repository.save(new Task("Need to do Something #3", "Task #3", LocalDateTime.now().plus(240, ChronoUnit.MINUTES), Status.PENDING));
+			LOG.info("finished seeding tasks for in-memory mongodb.");
+
 		};
 	}
 

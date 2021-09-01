@@ -1,4 +1,4 @@
-package com.northone.challenge.model;
+package net.sample.challenge.model;
 
 /**
  * The allowed values for a Task Status

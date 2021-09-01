@@ -1,4 +1,4 @@
-package com.northone.challenge;
+package net.sample.challenge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

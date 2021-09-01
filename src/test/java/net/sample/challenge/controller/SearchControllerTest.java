@@ -1,8 +1,8 @@
-package com.northone.challenge.controller;
+package net.sample.challenge.controller;
 
-import com.northone.challenge.model.Status;
-import com.northone.challenge.model.Task;
-import com.northone.challenge.repository.TaskRepository;
+import net.sample.challenge.model.Status;
+import net.sample.challenge.model.Task;
+import net.sample.challenge.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +38,7 @@ class SearchControllerTest {
     @BeforeEach
     public void clearDb() {
         taskRepository.deleteAll();
-        taskRepository.save(new Task("desc","title", LocalDateTime.now(), Status.DONE));
+        taskRepository.save(new Task("desc test here","title", LocalDateTime.now(), Status.DONE));
     }
 
     @Test
@@ -61,7 +61,7 @@ class SearchControllerTest {
         MvcResult mvcResult = mockMvc.perform(get("/api/tasks/search?text=desc")
                         .contentType("application/json"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.tasks[0].description").value("desc"))
+                .andExpect(jsonPath("$._embedded.tasks[0].description").value("desc test here"))
                 .andExpect(jsonPath("$.page.totalElements").value(1))
                 .andReturn();
 

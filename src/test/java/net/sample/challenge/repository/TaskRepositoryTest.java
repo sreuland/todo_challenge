@@ -1,7 +1,7 @@
-package com.northone.challenge.repository;
+package net.sample.challenge.repository;
 
-import com.northone.challenge.model.Status;
-import com.northone.challenge.model.Task;
+import net.sample.challenge.model.Status;
+import net.sample.challenge.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,7 @@
-package com.northone.challenge.controller;
+package net.sample.challenge.controller;
 
-import com.northone.challenge.model.Task;
-import com.northone.challenge.repository.TaskRepository;
+import net.sample.challenge.model.Task;
+import net.sample.challenge.repository.TaskRepository;
 import com.querydsl.core.types.Predicate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import static java.util.Objects.nonNull;
 
 @RestController
 @Tag(name = "Todo Search API", description = "Search API for Todos")

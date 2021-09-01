@@ -41,6 +41,8 @@ port 8081 - http://localhost:8081/api/tasks
 
 API Docs and Interactive Console for Todo API are located at http://localhost:8081/swagger-ui.html
 
+![Alt text](api_doc.png "API Docs")
+
 ### API Health Check
 API provides a HTTP Health check endpoint:
 GET http://localhost:8081/actuator/health

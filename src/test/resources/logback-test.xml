@@ -9,5 +9,5 @@
     <root level="error">
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="com.northone.challenge" level="debug"/>
+    <logger name="net.sample.challenge" level="debug"/>
 </configuration>

@@ -1,4 +1,4 @@
-package com.northone.challenge.model;
+package net.sample.challenge.model;
 
 import com.querydsl.core.annotations.QueryEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,17 +31,21 @@ public class Task {
     @NonNull
     @TextIndexed
     private String description;
+
     @NonNull
     @TextIndexed
     private String title;
+
     @NonNull
     private LocalDateTime dueDate;
+
     @NonNull
     private Status status;
 
     @CreatedDate
     @Schema(hidden = true)
     private LocalDateTime createdDate;
+
     @LastModifiedDate
     @Schema(hidden = true)
     private LocalDateTime lastModifiedDate;
