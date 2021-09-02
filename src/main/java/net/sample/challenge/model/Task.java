@@ -1,5 +1,8 @@
 package net.sample.challenge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.querydsl.core.annotations.QueryEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -52,6 +55,7 @@ public class Task {
 
     // transient, only used for text search results
     @TextScore
+    @JsonInclude(Include.NON_NULL)
     Float score;
 
 }
